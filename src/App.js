@@ -3,6 +3,7 @@ import Navbar from "./components/navbar";
 import Counters from "./components/counters";
 import { Component } from "react";
 import Pagination from "./components/common/pagination";
+import { paginate } from "./utils/paginate";
 
 class App extends Component {
   state = {
@@ -62,7 +63,9 @@ class App extends Component {
   };
 
   render() {
-    const { pageSize, currentPage } = this.state;
+    const { pageSize, currentPage, counters: allCounters } = this.state;
+
+    const counters = paginate(allCounters, currentPage, pageSize);
 
     return (
       <>
@@ -77,7 +80,7 @@ class App extends Component {
             onDecrement={this.handleDecrement}
             onReset={this.handleReset}
             onLike={this.handleLike}
-            counters={this.state.counters}
+            counters={counters}
           />
           <Pagination
             itemsCount={this.state.counters.length}

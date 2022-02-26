@@ -10,7 +10,7 @@ const Pagination = (props) => {
   console.log("cp", currentPage);
 
   return (
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example" className="mt-3">
       <ul className="pagination">
         {pages.map((page) => (
           <li
