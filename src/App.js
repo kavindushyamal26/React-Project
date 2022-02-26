@@ -15,6 +15,7 @@ class App extends Component {
       { id: 6, value: 0, like: false },
     ],
     pageSize: 3,
+    currentPage: 1,
   };
 
   handleDelete = (cid) => {
@@ -57,10 +58,12 @@ class App extends Component {
   };
 
   handlePageChange = (page) => {
-    console.log(page);
+    this.setState({ currentPage: page });
   };
 
   render() {
+    const { pageSize, currentPage } = this.state;
+
     return (
       <>
         <Navbar
@@ -78,7 +81,8 @@ class App extends Component {
           />
           <Pagination
             itemsCount={this.state.counters.length}
-            pageSize={this.state.pageSize}
+            pageSize={pageSize}
+            currentPage={currentPage}
             onPageChange={this.handlePageChange}
           />
         </main>
