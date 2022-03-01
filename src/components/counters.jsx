@@ -9,7 +9,7 @@ class Counters extends Component {
       <div>
         <button
           onClick={onReset}
-          style={{ backgroundColor: "green" }}
+          style={{ backgroundColor: "purple", border: "0px" }}
           className="btn btn-sm btn-primary m-2"
         >
           Reset

@@ -4,16 +4,19 @@ import Counters from "./components/counters";
 import { Component } from "react";
 import Pagination from "./components/common/pagination";
 import { paginate } from "./utils/paginate";
+import { computeHeadingLevel } from "@testing-library/react";
 
 class App extends Component {
   state = {
     counters: [
-      { id: 1, value: 2, like: false },
-      { id: 2, value: 0, like: false },
-      { id: 3, value: 0, like: false },
-      { id: 4, value: 0, like: false },
-      { id: 5, value: 0, like: false },
-      { id: 6, value: 0, like: false },
+      { id: 1, value: 2, like: false, color: "green" },
+      { id: 2, value: 0, like: false, color: "red" },
+      { id: 3, value: 0, like: false, color: "yellow" },
+      { id: 4, value: 0, like: false, color: "green" },
+      { id: 5, value: 0, like: false, color: "green" },
+      { id: 6, value: 0, like: false, color: "yellow" },
+      { id: 7, value: 0, like: false, color: "red" },
+      { id: 8, value: 0, like: false, color: "yellow" },
     ],
     pageSize: 3,
     currentPage: 1,
@@ -74,20 +77,32 @@ class App extends Component {
           totalLike={this.state.counters.filter((c) => c.like === true).length}
         />
         <main className="container">
-          <Counters
-            onDelete={this.handleDelete}
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement}
-            onReset={this.handleReset}
-            onLike={this.handleLike}
-            counters={counters}
-          />
-          <Pagination
-            itemsCount={this.state.counters.length}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={this.handlePageChange}
-          />
+          <div className="row">
+            <div className="col-2 m-3">
+              <ul class="list-group">
+                <li class="list-group-item">All Colors</li>
+                <li class="list-group-item">Green</li>
+                <li class="list-group-item">Red</li>
+                <li class="list-group-item">Yellow</li>
+              </ul>
+            </div>
+            <div className="col">
+              <Counters
+                onDelete={this.handleDelete}
+                onIncrement={this.handleIncrement}
+                onDecrement={this.handleDecrement}
+                onReset={this.handleReset}
+                onLike={this.handleLike}
+                counters={counters}
+              />
+              <Pagination
+                itemsCount={this.state.counters.length}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={this.handlePageChange}
+              />
+            </div>
+          </div>
         </main>
       </>
     );

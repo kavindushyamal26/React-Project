@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import propTypes from "prop-types";
 import { computeHeadingLevel } from "@testing-library/react";
 
 const Pagination = (props) => {
@@ -7,7 +8,7 @@ const Pagination = (props) => {
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1); //Arrey
-  console.log("cp", currentPage);
+  //console.log("cp", currentPage);
 
   return (
     <nav aria-label="Page navigation example" className="mt-3">
@@ -25,6 +26,13 @@ const Pagination = (props) => {
       </ul>
     </nav>
   );
+};
+
+Pagination.propTypes = {
+  itemsCount: propTypes.number.isRequired,
+  pageSize: propTypes.number.isRequired,
+  currentPage: propTypes.number.isRequired,
+  onPageChange: propTypes.func.isRequired,
 };
 
 export default Pagination;

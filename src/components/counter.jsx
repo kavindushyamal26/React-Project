@@ -23,12 +23,27 @@ class Counter extends Component {
     return classes;
   }
 
+  getColorClases() {
+    let classes = "badge m-2 badge-";
+    if (this.props.counter.color === "red") {
+      classes += "danger";
+    }
+    if (this.props.counter.color === "green") {
+      classes += "success";
+    }
+    if (this.props.counter.color === "yellow") {
+      classes += "warning";
+    }
+    return classes;
+  }
+
   // handleIncrement = () => {
   //   this.setState({ value: this.state.value + 1 });
   // };
 
   render() {
     // const {counter,onIncrement, onDelete } = this.props
+    console.log("props", this.props);
     return (
       <div className="row">
         <div className="col-sm-1">
@@ -60,6 +75,9 @@ class Counter extends Component {
           >
             X
           </button>
+          <span className={this.getColorClases()}>
+            {this.props.counter.color}
+          </span>
         </div>
       </div>
     );
