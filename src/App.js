@@ -5,21 +5,23 @@ import { Component } from "react";
 import Pagination from "./components/common/pagination";
 import { paginate } from "./utils/paginate";
 import { computeHeadingLevel } from "@testing-library/react";
+import ListGroup from "./components/common/listGroup";
 
 class App extends Component {
   state = {
     counters: [
-      { id: 1, value: 2, like: false, color: "green" },
-      { id: 2, value: 0, like: false, color: "red" },
-      { id: 3, value: 0, like: false, color: "yellow" },
-      { id: 4, value: 0, like: false, color: "green" },
-      { id: 5, value: 0, like: false, color: "green" },
-      { id: 6, value: 0, like: false, color: "yellow" },
-      { id: 7, value: 0, like: false, color: "red" },
-      { id: 8, value: 0, like: false, color: "yellow" },
+      { id: 1, value: 2, like: false, color: "Green" },
+      { id: 2, value: 0, like: false, color: "Red" },
+      { id: 3, value: 0, like: false, color: "Yellow" },
+      { id: 4, value: 0, like: false, color: "Green" },
+      { id: 5, value: 0, like: false, color: "Green" },
+      { id: 6, value: 0, like: false, color: "Yellow" },
+      { id: 7, value: 0, like: false, color: "Red" },
+      { id: 8, value: 0, like: false, color: "Yellow" },
     ],
     pageSize: 3,
     currentPage: 1,
+    selectedColor: "",
   };
 
   handleDelete = (cid) => {
@@ -65,26 +67,43 @@ class App extends Component {
     this.setState({ currentPage: page });
   };
 
-  render() {
-    const { pageSize, currentPage, counters: allCounters } = this.state;
+  handleColorSelect = (color) => {
+    //console.log("color", color);
+    this.setState({ selectedColor: color, currentPage: 1 });
+  };
 
-    const counters = paginate(allCounters, currentPage, pageSize);
+  render() {
+    const {
+      pageSize,
+      currentPage,
+      selectedColor,
+      counters: allCounters,
+    } = this.state;
+
+    //console.log("selcol", selectedColor);
+    const filtered =
+      selectedColor && selectedColor != "All"
+        ? allCounters.filter((c) => c.color === selectedColor)
+        : allCounters;
+    //console.log("filtered", filtered);
+
+    const counters = paginate(filtered, currentPage, pageSize);
 
     return (
       <>
         <Navbar
           totalCount={this.state.counters.filter((c) => c.value > 0).length}
           totalLike={this.state.counters.filter((c) => c.like === true).length}
+          countersCount={filtered.length}
         />
         <main className="container">
           <div className="row">
             <div className="col-2 m-3">
-              <ul class="list-group">
-                <li class="list-group-item">All Colors</li>
-                <li class="list-group-item">Green</li>
-                <li class="list-group-item">Red</li>
-                <li class="list-group-item">Yellow</li>
-              </ul>
+              <ListGroup
+                counters={this.state.counters}
+                selectedItem={this.state.selectedColor}
+                onItemSelect={this.handleColorSelect}
+              />
             </div>
             <div className="col">
               <Counters
@@ -96,7 +115,7 @@ class App extends Component {
                 counters={counters}
               />
               <Pagination
-                itemsCount={this.state.counters.length}
+                itemsCount={filtered.length}
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onPageChange={this.handlePageChange}

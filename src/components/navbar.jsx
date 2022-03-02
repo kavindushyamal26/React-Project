@@ -15,6 +15,9 @@ const Navbar = (props) => {
             {props.totalLike}
           </span>
         </a>
+        <p style={{ fontWeight: "bold", fontSize: "1.3rem" }}>
+          Showing {props.countersCount} items
+        </p>
       </div>
     </nav>
   );
