@@ -6,6 +6,8 @@ import Pagination from "./components/common/pagination";
 import { paginate } from "./utils/paginate";
 import { computeHeadingLevel } from "@testing-library/react";
 import ListGroup from "./components/common/listGroup";
+import SortGroup from "./components/common/sortGroup";
+import _ from "lodash";
 
 class App extends Component {
   state = {
@@ -21,7 +23,8 @@ class App extends Component {
     ],
     pageSize: 3,
     currentPage: 1,
-    selectedColor: "",
+    sortColumn: { path: "title", order: "asc" },
+    // selectedColor: "",
   };
 
   handleDelete = (cid) => {
@@ -72,10 +75,16 @@ class App extends Component {
     this.setState({ selectedColor: color, currentPage: 1 });
   };
 
+  handleSort = (path) => {
+    //console.log("column", column);
+    this.setState({ sortColumn: { path, order: "asc" } });
+  };
+
   render() {
     const {
       pageSize,
       currentPage,
+      sortColumn,
       selectedColor,
       counters: allCounters,
     } = this.state;
@@ -86,6 +95,12 @@ class App extends Component {
         ? allCounters.filter((c) => c.color === selectedColor)
         : allCounters;
     //console.log("filtered", filtered);
+
+    console.log("sortcolum", [sortColumn.path]);
+    const sorted = _.groupBy(filtered, [sortColumn.path], [sortColumn.order]);
+    //const sorted = filtered.sort((a, b) => a.color > b.color);
+    console.log("filtered", filtered);
+    console.log("Sorted", sorted);
 
     const counters = paginate(filtered, currentPage, pageSize);
 
@@ -103,6 +118,12 @@ class App extends Component {
                 counters={this.state.counters}
                 selectedItem={this.state.selectedColor}
                 onItemSelect={this.handleColorSelect}
+              />
+            </div>
+            <div className="col-2 m-3">
+              <SortGroup
+                counters={this.state.counters}
+                onSort={this.handleSort}
               />
             </div>
             <div className="col">
