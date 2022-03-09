@@ -1,6 +1,8 @@
 import "./App.css";
+import { Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Counters from "./components/counters";
+import Users from "./components/users";
 import { Component } from "react";
 import Pagination from "./components/common/pagination";
 import { paginate } from "./utils/paginate";
@@ -111,6 +113,10 @@ class App extends Component {
           totalLike={this.state.counters.filter((c) => c.like === true).length}
           countersCount={filtered.length}
         />
+        {/* <div>
+          <Route path="/users" component={Users}></Route>
+          <Route path="/" component={App}></Route>
+        </div> */}
         <main className="container">
           <div className="row">
             <div className="col-2 m-3">

@@ -6,7 +6,7 @@ const Navbar = (props) => {
     <nav className="navbar navbar-light bg-light">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          Navbar{" "}
+          COUNTERS{" "}
           <span className="badge badge-pill badge-secondary m-2">
             {props.totalCount}
           </span>
@@ -15,6 +15,14 @@ const Navbar = (props) => {
             {props.totalLike}
           </span>
         </a>
+        {/* <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/users">Users</a>
+          </li>
+        </ul> */}
         <p style={{ fontWeight: "bold", fontSize: "1.3rem" }}>
           Showing {props.countersCount} items
         </p>
