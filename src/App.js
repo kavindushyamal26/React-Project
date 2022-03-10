@@ -7,6 +7,7 @@ import MainCounter from "./components/maincounter";
 import Users from "./components/users";
 import Orders from "./components/orders";
 import Notfound from "./components/notfound";
+import LoginForm from "./components/loginForm";
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
       <>
         <main>
           <Switch>
+            <Route path="/login" component={LoginForm}></Route>
             <Route path="/maincounter" component={MainCounter}></Route>
             <Route path="/users" component={Users}></Route>
             <Route path="/orders" component={Orders}></Route>
