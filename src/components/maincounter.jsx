@@ -108,35 +108,37 @@ class MainCounter extends Component {
           totalLike={this.state.counters.filter((c) => c.like === true).length}
           countersCount={filtered.length}
         />
-        <div className="row">
-          <div className="col-2 m-3">
-            <ListGroup
-              counters={this.state.counters}
-              selectedItem={this.state.selectedColor}
-              onItemSelect={this.handleColorSelect}
-            />
-          </div>
-          <div className="col-2 m-3">
-            <SortGroup
-              counters={this.state.counters}
-              onSort={this.handleSort}
-            />
-          </div>
-          <div className="col">
-            <Counters
-              onDelete={this.handleDelete}
-              onIncrement={this.handleIncrement}
-              onDecrement={this.handleDecrement}
-              onReset={this.handleReset}
-              onLike={this.handleLike}
-              counters={counters}
-            />
-            <Pagination
-              itemsCount={filtered.length}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={this.handlePageChange}
-            />
+        <div className="container">
+          <div className="row">
+            <div className="col-2 m-3">
+              <ListGroup
+                counters={this.state.counters}
+                selectedItem={this.state.selectedColor}
+                onItemSelect={this.handleColorSelect}
+              />
+            </div>
+            <div className="col-2 m-3">
+              <SortGroup
+                counters={this.state.counters}
+                onSort={this.handleSort}
+              />
+            </div>
+            <div className="col">
+              <Counters
+                onDelete={this.handleDelete}
+                onIncrement={this.handleIncrement}
+                onDecrement={this.handleDecrement}
+                onReset={this.handleReset}
+                onLike={this.handleLike}
+                counters={counters}
+              />
+              <Pagination
+                itemsCount={filtered.length}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={this.handlePageChange}
+              />
+            </div>
           </div>
         </div>
       </>

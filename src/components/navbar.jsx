@@ -4,10 +4,10 @@ import { Link, NavLink } from "react-router-dom";
 //stateless functional component
 const Navbar = (props) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/maincounter">
-          Navbar
+          COUNTER APPLICATION
         </Link>
         <button
           className="navbar-toggler"
@@ -44,7 +44,7 @@ const Navbar = (props) => {
         </span>
         <span
           className="navbar-text ml-5"
-          style={{ fontWeight: "bold", fontSize: "1.3rem", color: "#601301" }}
+          style={{ fontWeight: "bold", fontSize: "1.3rem", color: "#A46C5F" }}
         >
           Showing {props.countersCount} items
         </span>

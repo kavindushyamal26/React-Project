@@ -1,7 +1,13 @@
 import React from "react";
+import Navbar from "./navbar";
 
-const Customers = () => {
-  return <h1>Customers</h1>;
+const Users = () => {
+  return (
+    <>
+      <Navbar />
+      <h1>Users</h1>
+    </>
+  );
 };
 
-export default Customers;
+export default Users;
