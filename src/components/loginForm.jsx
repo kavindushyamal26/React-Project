@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
 import Input from "./common/input";
 
 class LoginForm extends Component {
@@ -7,34 +8,59 @@ class LoginForm extends Component {
     errors: {},
   };
 
+  schema = {
+    username: Joi.string().required().label("Username"),
+    password: Joi.string().required().label("Password"),
+  };
+
   validate = () => {
+    const options = { abortEarly: false };
+    const result = Joi.validate(this.state.account, this.schema, options);
+    if (!result.error) return null;
+
     const errors = {};
-
-    const { account } = this.state;
-    if (account.username.trim() === "")
-      errors.username = "Username is required";
-
-    if (account.password.trim() === "")
-      errors.password = "Password is required";
-
-    return Object.keys(errors).length === 0 ? null : errors;
+    for (let item of result.error.details) {
+      errors[item.path[0]] = item.message;
+    }
+    return errors;
   };
 
-  validateProperty = (input) => {
-    if (input.name === "username") {
-      if (input.value.trim() === "") return "Username is required";
-    }
-
-    if (input.name === "password") {
-      if (input.value.trim() === "") return "Password is required";
-    }
+  validateProperty = ({ name, value }) => {
+    const obj = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const result = Joi.validate(obj, schema);
+    return result.error ? result.error.details[0].message : null;
   };
 
+  //-------------- validation previous methods ------------------------
+  // validate = () => {
+  //   const errors = { ...this.state.errors };
+
+  //   const { account } = this.state;
+  //   if (account.username.trim() === "")
+  //     errors.username = "Username is required";
+
+  //   if (account.password.trim() === "")
+  //     errors.password = "Password is required";
+
+  //   return Object.keys(errors).length === 0 ? null : errors;
+  // };
+
+  // validateProperty = (input) => {
+  //   if (input.name === "username") {
+  //     if (input.value.trim() === "") return "Username is required";
+  //   }
+
+  //   if (input.name === "password") {
+  //     if (input.value.trim() === "") return "Password is required";
+  //   }
+  // };
+  //-------------------------------------------------------------------------
   handleSubmit = (e) => {
     e.preventDefault();
 
     const errors = this.validate();
-    console.log("E :", errors);
+    //console.log("E :", errors);
     this.setState({ errors: errors || {} });
     if (errors) return;
     //console.log("submited");
