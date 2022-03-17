@@ -8,6 +8,7 @@ import Users from "./components/users";
 import Orders from "./components/orders";
 import Notfound from "./components/notfound";
 import LoginForm from "./components/loginForm";
+import Register from "./components/registerForm";
 import "./App.css";
 
 class App extends Component {
@@ -91,6 +92,7 @@ class App extends Component {
         />
         <main className="container">
           <Switch>
+            <Route path="/register" component={Register}></Route>
             <Route path="/login" component={LoginForm}></Route>
             <Route
               path="/maincounter"
