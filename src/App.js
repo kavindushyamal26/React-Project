@@ -10,6 +10,7 @@ import Notfound from "./components/notfound";
 import LoginForm from "./components/loginForm";
 import Register from "./components/registerForm";
 import "./App.css";
+import CallingBackEnd from "./components/callingBackend";
 
 class App extends Component {
   state = {
@@ -92,6 +93,7 @@ class App extends Component {
         />
         <main className="container">
           <Switch>
+            <Route path="/backend" component={CallingBackEnd}></Route>
             <Route path="/register" component={Register}></Route>
             <Route path="/login" component={LoginForm}></Route>
             <Route
