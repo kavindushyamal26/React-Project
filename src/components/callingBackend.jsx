@@ -1,19 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
+
 class CallingBackEnd extends Component {
   state = { posts: [] };
 
   async componentDidMount() {
-    const { data: posts } = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
+    const { data: posts } = await axios.get(apiEndpoint);
     this.setState({ posts });
-    //console.log("Data", data);
+    //console.log("Data", posts);
   }
 
-  handleAdd = () => {
-    console.log("Add");
+  handleAdd = async () => {
+    const obj = { title: "Kavindu", body: "a" };
+    //post request only return newly added value
+    const { data: post } = await axios.post(apiEndpoint, obj);
+    const posts = [post, ...this.state.posts];
+    this.setState({ posts });
   };
 
   render() {
@@ -22,7 +26,7 @@ class CallingBackEnd extends Component {
         <h1 className="mb-4">BackEnd</h1>
         <button
           type="button"
-          class="btn btn-success mb-4"
+          className="btn btn-success mb-4"
           onClick={this.handleAdd}
         >
           Add
@@ -38,16 +42,16 @@ class CallingBackEnd extends Component {
           </thead>
           <tbody>
             {this.state.posts.map((p) => (
-              <tr>
+              <tr key={p.id}>
                 <th scope="row">{p.id}</th>
                 <td>{p.title}</td>
                 <td>
-                  <button type="button" class="btn btn-info">
+                  <button type="button" className="btn btn-info">
                     Update
                   </button>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger">
+                  <button type="button" className="btn btn-danger">
                     Delete
                   </button>
                 </td>
