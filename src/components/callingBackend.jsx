@@ -20,14 +20,21 @@ class CallingBackEnd extends Component {
     this.setState({ posts });
   };
 
-  handleUpdate = (post) => {
+  handleUpdate = async (post) => {
     post.title = "Updated";
     //put method update entire form : need to send all the data set
-    axios.put(apiEndpoint + `/${post.id}`, post);
+    await axios.put(apiEndpoint + `/${post.id}`, post);
 
     const posts = [...this.state.posts];
     const index = posts.indexOf(post);
     posts[index] = { ...post };
+    this.setState({ posts });
+  };
+
+  handleDelete = async (post) => {
+    await axios.delete(apiEndpoint + `/${post.id}`);
+
+    const posts = this.state.posts.filter((p) => p.id !== post.id);
     this.setState({ posts });
   };
 
@@ -66,7 +73,11 @@ class CallingBackEnd extends Component {
                   </button>
                 </td>
                 <td>
-                  <button type="button" className="btn btn-danger">
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => this.handleDelete(p)}
+                  >
                     Delete
                   </button>
                 </td>
