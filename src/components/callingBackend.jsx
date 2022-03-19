@@ -32,10 +32,23 @@ class CallingBackEnd extends Component {
   };
 
   handleDelete = async (post) => {
-    await axios.delete(apiEndpoint + `/${post.id}`);
-
+    const originalState = this.state.posts;
     const posts = this.state.posts.filter((p) => p.id !== post.id);
     this.setState({ posts });
+    try {
+      await axios.delete(apiEndpoint + `/${post.id}`);
+      // throw new Error("");
+    } catch (ex) {
+      //Expected & Unexpected Error handling
+      if (ex.response && ex.response.status === 404)
+        alert("This post has already been deleted.");
+      else {
+        console.log("Error:", ex);
+        alert("An unexpected error occured.");
+      }
+
+      this.setState({ posts: originalState });
+    }
   };
 
   render() {
