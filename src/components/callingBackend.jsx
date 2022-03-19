@@ -20,6 +20,17 @@ class CallingBackEnd extends Component {
     this.setState({ posts });
   };
 
+  handleUpdate = (post) => {
+    post.title = "Updated";
+    //put method update entire form : need to send all the data set
+    axios.put(apiEndpoint + `/${post.id}`, post);
+
+    const posts = [...this.state.posts];
+    const index = posts.indexOf(post);
+    posts[index] = { ...post };
+    this.setState({ posts });
+  };
+
   render() {
     return (
       <>
@@ -46,7 +57,11 @@ class CallingBackEnd extends Component {
                 <th scope="row">{p.id}</th>
                 <td>{p.title}</td>
                 <td>
-                  <button type="button" className="btn btn-info">
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    onClick={() => this.handleUpdate(p)}
+                  >
                     Update
                   </button>
                 </td>
