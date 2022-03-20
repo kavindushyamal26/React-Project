@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 import http from "./services/httpService";
 import config from "../config.json";
 
@@ -40,7 +41,7 @@ class CallingBackEnd extends Component {
     } catch (ex) {
       //Expected & Unexpected Error handling
       if (ex.response && ex.response.status === 404)
-        alert("This post has already been deleted.");
+        toast.error("This post has already been deleted.");
 
       this.setState({ posts: originalState });
     }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { computeHeadingLevel } from "@testing-library/react";
+import { ToastContainer } from "react-toastify";
 import _ from "lodash";
 import Navbar from "./components/navbar";
 import MainCounter from "./components/maincounter";
@@ -9,8 +9,10 @@ import Orders from "./components/orders";
 import Notfound from "./components/notfound";
 import LoginForm from "./components/loginForm";
 import Register from "./components/registerForm";
-import "./App.css";
 import CallingBackEnd from "./components/callingBackend";
+
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   state = {
@@ -86,6 +88,7 @@ class App extends Component {
 
     return (
       <>
+        <ToastContainer />
         <Navbar
           totalCount={this.state.counters.filter((c) => c.value > 0).length}
           totalLike={this.state.counters.filter((c) => c.like === true).length}
