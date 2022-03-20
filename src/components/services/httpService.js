@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import logger from "./logService";
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
@@ -7,7 +8,8 @@ axios.interceptors.response.use(null, (error) => {
     error.response.status >= 400 &&
     error.response.status < 500;
   if (!expectedError) {
-    console.log("Logging the error", error);
+    //capture error using raven
+    logger.log(error);
     toast.error("An unexpected error occured.");
   }
 
